@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  jupyterlab:
+    image: jupyter/all-spark-notebook
+    ports:
+      - "8889:8888"  # JupyterLab
+    volumes:
+      - ./data:/home/jovyan/data  # Mount a local directory to the container for persistent storage
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+
+  spark-master:
+    image: bitnami/spark:latest
+    ports:
+      - "8080:8080"  # Spark Web UI
+      - "7077:7077"  # Spark master
+    environment:
+      - SPARK_MODE=master
+
+  spark-worker:
+    image: bitnami/spark:latest
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+    volumes:
+      - ./data:/home/jovyan/data
+    depends_on:
+      - spark-master

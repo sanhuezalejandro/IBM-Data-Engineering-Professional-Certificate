@@ -1,0 +1,22 @@
+{
+  "fields": [
+    {
+      "name": "emp_id",
+      "type": "integer",
+      "format": "default"
+    },
+    {
+      "name": "emp_name",
+      "type": "string",
+      "format": "default"
+    },
+    {
+      "name": "salary",
+      "type": "integer",
+      "format": "default"
+    }
+  ],
+  "missingValues": [
+    ""
+  ]
+}
